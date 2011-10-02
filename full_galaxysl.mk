@@ -1,9 +1,9 @@
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 
 # The gps config appropriate for this device
-$(call inherit-product, device/common/gps/gps_us_supl.mk)
+$(call inherit-product, device/common/gps/gps_as_supl.mk)
 
-$(call inherit-product-if-exists, vendor/samsung/galaxyxsl/galaxysl-vendor.mk)
+$(call inherit-product-if-exists, vendor/samsung/galaxysl/galaxysl-vendor.mk)
 
 DEVICE_PACKAGE_OVERLAYS += device/samsung/galaxysl/overlay
 
@@ -16,8 +16,14 @@ endif
 PRODUCT_COPY_FILES += \
     $(LOCAL_KERNEL):kernel
 
-#$(call inherit-product, device/samsung/galaxysl/galaxysl.mk)
+$(call inherit-product, device/samsung/galaxysl/galaxysl.mk)
 $(call inherit-product, build/target/product/full.mk)
+
+# Screen density is actually considered a locale (since it is taken into account
+# the the build-time selection of resources). The product definitions including
+# this file must pay attention to the fact that the first entry in the final
+# PRODUCT_LOCALES expansion must not be a density.
+PRODUCT_LOCALES := en_GB
 
 # Galaxy SL uses high-density artwork where available
 PRODUCT_LOCALES += hdpi
