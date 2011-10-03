@@ -6,7 +6,7 @@ ifdef OMAP_ENHANCEMENT
 COMMON_GLOBAL_CFLAGS += -DOMAP_ENHANCEMENT
 endif
 
-TARGET_BOARD := GT-I9003
+TARGET_BOARD_PLATFORM := latona
 TARGET_BOOTLOADER_BOARD_NAME := GT-I9003
 
 # Board properties
@@ -26,15 +26,12 @@ TARGET_NO_BOOTLOADER := true
 TARGET_NO_RADIOIMAGE := true
 
 BOARD_NAND_PAGE_SIZE := 4096 -s 128
-#BOARD_KERNEL_PAGESIZE := 1000
 BOARD_KERNEL_PAGESIZE := 4096
 BOARD_KERNEL_CMDLINE := console=ttySAC2,115200 consoleblank=0
 BOARD_KERNEL_BASE := 0x10000000
 BOARD_PAGE_SIZE := 4096
 
 TARGET_PREBUILT_KERNEL := device/samsung/galaxysl/kernel
-
-TARGET_OTA_ASSERT_DEVICE := GT-I9003
 
 # fix this up by examining /proc/mtd on a running device
 BOARD_BOOTIMAGE_PARTITION_SIZE := 8388608
@@ -43,19 +40,12 @@ BOARD_SYSTEMIMAGE_PARTITION_SIZE := 339738624
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 2013200384
 BOARD_FLASH_BLOCK_SIZE := 4096
 
-BOARD_BOOT_DEVICE := /dev/block/bml7
+# recovery
 BOARD_BML_BOOT := /dev/block/bml7
-BOARD_RECOVERY_DEVICE := /dev/block/bml7
 BOARD_BML_RECOVERY := /dev/block/bml7
-
-BOARD_DATA_DEVICE := /dev/block/mmcblk0p3
-BOARD_DATA_FILESYSTEM := ext4
-BOARD_SYSTEM_DEVICE := /dev/block/stl9
-BOARD_SYSTEM_FILESYSTEM := ext4
-BOARD_CACHE_DEVICE := /dev/block/stl11
-BOARD_CACHE_FILESYSTEM := ext4
 BOARD_USES_MMCUTILS := true
 BOARD_HAS_NO_MISC_PARTITION := true
+BOARD_HAS_NO_SELECT_BUTTON := true
 
 #TARGET_TOOLS_PREFIX := /media/android/toolchain/arm-2011.03/bin/arm-none-eabi-
 #TARGET_TOOLS_PREFIX := /media/android/toolchain/arm-2009q3/bin/arm-none-eabi-
@@ -63,7 +53,9 @@ BOARD_HAS_NO_MISC_PARTITION := true
 TARGET_PREBUILT_KERNEL := device/samsung/galaxysl/kernel
 TARGET_USERIMAGES_USE_EXT4 := true
 
+# deprecated
 BOARD_USES_COMBINED_RECOVERY := true
+
 TARGET_PROVIDES_INIT := true
 TARGET_PROVIDES_INIT_TARGET_RC := true
 TARGET_RECOVERY_INITRC := device/samsung/galaxysl/recovery.rc
@@ -72,6 +64,7 @@ BOARD_CUSTOM_RECOVERY_KEYMAPPING:= ../../device/samsung/galaxysl/recovery/recove
 BOARD_USE_USB_MASS_STORAGE_SWITCH := true
 BOARD_UMS_LUNFILE := "/sys/devices/platform/usb_mass_storage/lun0/file"
 
+# deprecated
 BOARD_HAS_DOWNLOAD_MODE := true
 
 # Bluetooth
@@ -110,19 +103,6 @@ endif
 
 #BOARD_USE_FROYO_LIBCAMERA := true
 
-#TARGET_PROVIDES_MEDIASERVER := true
-
-# Video Devices
-BOARD_USES_OVERLAY := true
-BOARD_V4L2_DEVICE := /dev/video1
-BOARD_CAMERA_DEVICE := /dev/video0
-BOARD_SECOND_CAMERA_DEVICE := /dev/video5
-
-# FM
-BUILD_FM_RADIO := true
-BOARD_HAVE_FM_ROUTING := true
-FM_CHR_DEV_ST := true
-
 # FM Radio
 BOARD_HAVE_FM_RADIO := true
 BOARD_GLOBAL_CFLAGS += -DHAVE_FM_RADIO
@@ -132,20 +112,18 @@ BOARD_FM_DEVICE := wl1271
 USES_TI_WL1271 := true
 BOARD_WPA_SUPPLICANT_DRIVER := CUSTOM
 BOARD_WPA_SUPPLICANT_PRIVATE_LIB := libCustomWifi
-ifdef USES_TI_WL1271
 BOARD_WLAN_DEVICE           := wl1271
 BOARD_SOFTAP_DEVICE         := wl1271
-endif
 WPA_SUPPLICANT_VERSION      := VER_0_6_X
 WIFI_DRIVER_MODULE_PATH     := "/system/etc/wifi/tiwlan_drv.ko"
 WIFI_DRIVER_MODULE_NAME     := "tiwlan_drv"
 WIFI_FIRMWARE_LOADER        := "wlan_loader"
 AP_CONFIG_DRIVER_WILINK     := true
 
-
-BOARD_HAS_NO_SELECT_BUTTON := true
 # Use this flag if the board has a ext4 partition larger than 2gb
 BOARD_HAS_LARGE_FILESYSTEM := true
 
 WITH_JIT := true
 ENABLE_JSC_JIT := true
+
+TARGET_OTA_ASSERT_DEVICE := GT-I9003
