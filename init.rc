@@ -685,15 +685,12 @@ service pvrsrvinit /system/bin/pvrsrvinit
     group root
     oneshot
 
-# For TI WIFI
-### WILINK STA
-
+# Wifi
 service wpa_supplicant /system/bin/wpa_supplicant -Dtiwlan0 -itiwlan0 -c/data/misc/wifi/wpa_supplicant.conf -dd
     socket wpa_tiwlan0 dgram 660 wifi wifi
     disabled
     oneshot
 
-#for WiFi MFG(TestMode)
 service mfgloader /system/bin/mfgloader
     disabled
     oneshot
@@ -701,10 +698,12 @@ service mfgloader /system/bin/mfgloader
 service wlandutservice /system/bin/wlandutservice
     disabled
     oneshot
-# end of wifi
     
+service dhcpcd_tiwlan0 /system/bin/dhcpcd -ABKL tiwlan0
+    disabled
+    oneshot
 
-service dhcpcd /system/bin/dhcpcd tiwlan0
+service iprenew_tiwlan0 /system/bin/dhcpcd -n
     disabled
     oneshot
 
@@ -728,8 +727,6 @@ service tiwlan_nvs /system/bin/tiwlan_plts -n
     disabled
     oneshot
 
-### WILINK AP
-
 service wlan_ap_loader /system/bin/tiap_loader -i /system/etc/wifi/softap/tiwlan_ap.ini -f /system/etc/wifi/softap/ap_firmware.bin -e /data/misc/wifi/nvs_map.bin
     disabled
     oneshot
@@ -746,8 +743,7 @@ service ifcfg_tiap /system/bin/ifconfig tiap0 192.168.43.1 netmask 255.255.255.0
     disabled
     oneshot
 
-#end of TI WIFI
-
+# end of Wifi
 
 service servicemanager /system/bin/servicemanager
     user system
