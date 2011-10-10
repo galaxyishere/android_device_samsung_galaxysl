@@ -108,20 +108,20 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_TAGS += dalvik.gc.type-precise
 
 # kernel modules for ramdisk
-#RAMDISK_MODULES = $(addprefix device/samsung/galaxysl/,bthid.ko dhd.ko gspca_main.ko j4fs.ko \
+#RAMDISK_MODULES = $(addprefix device/samsung/galaxysl/modules/,bthid.ko dhd.ko gspca_main.ko j4fs.ko \
 #	scsi_wait_scan.ko Si4709_driver.ko vibrator.ko)
 #PRODUCT_COPY_FILES += $(foreach module,\
 #	$(RAMDISK_MODULES),\
 #	$(module):root/lib/modules/$(notdir $(module)))
 
+# kernel modules for ramdisk
+PRODUCT_COPY_FILES += \
+	$(call find-copy-subdir-files,*,device/samsung/galaxysl/modules/lib,root/lib)
+
 # other kernel modules not in ramdisk
 PRODUCT_COPY_FILES += $(foreach module,\
 	$(filter-out $(RAMDISK_MODULES),$(wildcard device/samsung/galaxysl/modules/*.ko)),\
 	$(module):system/lib/modules/$(notdir $(module)))
-
-# kernel modules for recovery ramdisk
-#PRODUCT_COPY_FILES += \
-#    device/samsung/galaxysl/j4fs.ko:recovery/root/lib/modules/j4fs.ko
 
 ifeq ($(TARGET_PREBUILT_KERNEL),)
     LOCAL_KERNEL := device/samsung/galaxysl/kernel

@@ -20,14 +20,6 @@ DEVICE_PACKAGE_OVERLAYS += device/samsung/galaxysl/overlay
 
 # Libs
 #PRODUCT_PACKAGES += \
-#  gps.smdkv310 \
-#	 sensors.smdkv310 \
-#	 lights.smdkv310 \
-#	 mediaserver.smdkv310 \
-#	 overlay.smdkv310
-
-# Libs
-#PRODUCT_PACKAGES += \
 #	 overlay.omap3
 
 PRODUCT_PACKAGES += \
@@ -58,13 +50,14 @@ PRODUCT_COPY_FILES := \
 # Init files
 PRODUCT_COPY_FILES += \
 	device/samsung/galaxysl/fota.rc:root/fota.rc \
+	device/samsung/galaxysl/init.rc:root/init.rc \
+	device/samsung/galaxysl/recovery.rc:recovery/root/init.rc \
 	device/samsung/galaxysl/lpm.rc:root/lpm.rc \
 	device/samsung/galaxysl/init.latona.rc:root/init.latona.rc \
 	device/samsung/galaxysl/ueventd.latona.rc:root/ueventd.latona.rc \
 	device/samsung/galaxysl/ueventd.rc:root/ueventd.rc
 
 #PRODUCT_COPY_FILES += \
-#	device/samsung/galaxysl/init.rc:root/init.rc \
 #	device/samsung/galaxysl/init.goldfish.rc:root/init.goldfish.rc \
 #	device/samsung/galaxysl/ueventd.goldfish.rc:root/ueventd.goldfish.rc \
 
@@ -122,26 +115,6 @@ PRODUCT_COPY_FILES += \
 	device/samsung/galaxysl/prebuilt/etc/audio/codec/VtCallSpk.ini:system/etc/audio/codec/VtCallSpk.ini \
 	device/samsung/galaxysl/prebuilt/etc/audio/codec/VtCallSpkAmp.ini:system/etc/audio/codec/VtCallSpkAmp.ini
 
-# Alsa configuration files
-#PRODUCT_COPY_FILES += \
-#	device/samsung/galaxysl/prebuilt/usr/share/alsa/alsa.conf:system/usr/share/alsa/alsa.conf \
-#	device/samsung/galaxysl/prebuilt/usr/share/alsa/cards/aliases.conf:system/usr/share/alsa/cards/aliases.conf \
-#	device/samsung/galaxysl/prebuilt/usr/share/alsa/pcm/center_lfe.conf:system/usr/share/alsa/pcm/center_lfe.conf \
-#	device/samsung/galaxysl/prebuilt/usr/share/alsa/pcm/default.conf:system/usr/share/alsa/pcm/default.conf \
-#	device/samsung/galaxysl/prebuilt/usr/share/alsa/pcm/dmix.conf:system/usr/share/alsa/pcm/dmix.conf \
-#	device/samsung/galaxysl/prebuilt/usr/share/alsa/pcm/dpl.conf:system/usr/share/alsa/pcm/dpl.conf \
-#	device/samsung/galaxysl/prebuilt/usr/share/alsa/pcm/dsnoop.conf:system/usr/share/alsa/pcm/dsnoop.conf \
-#	device/samsung/galaxysl/prebuilt/usr/share/alsa/pcm/front.conf:system/usr/share/alsa/pcm/front.conf \
-#	device/samsung/galaxysl/prebuilt/usr/share/alsa/pcm/iec958.conf:system/usr/share/alsa/pcm/iec958.conf \
-#	device/samsung/galaxysl/prebuilt/usr/share/alsa/pcm/modem.conf:system/usr/share/alsa/pcm/modem.conf \
-#	device/samsung/galaxysl/prebuilt/usr/share/alsa/pcm/rear.conf:system/usr/share/alsa/pcm/rear.conf \
-#	device/samsung/galaxysl/prebuilt/usr/share/alsa/pcm/side.conf:system/usr/share/alsa/pcm/side.conf \
-#	device/samsung/galaxysl/prebuilt/usr/share/alsa/pcm/surround40.conf:system/usr/share/alsa/pcm/surround40.conf \
-#	device/samsung/galaxysl/prebuilt/usr/share/alsa/pcm/surround41.conf:system/usr/share/alsa/pcm/surround41.conf \
-#	device/samsung/galaxysl/prebuilt/usr/share/alsa/pcm/surround50.conf:system/usr/share/alsa/pcm/surround50.conf \
-#	device/samsung/galaxysl/prebuilt/usr/share/alsa/pcm/surround51.conf:system/usr/share/alsa/pcm/surround51.conf \
-#	device/samsung/galaxysl/prebuilt/usr/share/alsa/pcm/surround71.conf:system/usr/share/alsa/pcm/surround71.conf
-
 # Prebuilt kl keymaps
 PRODUCT_COPY_FILES += \
 	device/samsung/galaxysl/prebuilt/usr/keylayout/sec_jack.kl:system/usr/keylayout/sec_jack.kl \
@@ -149,17 +122,9 @@ PRODUCT_COPY_FILES += \
 	device/samsung/galaxysl/prebuilt/usr/keylayout/sec_power_key.kl:system/usr/keylayout/sec_power_key.kl \
 	device/samsung/galaxysl/prebuilt/usr/keylayout/sec_touchscreen.kl:system/usr/keylayout/sec_touchscreen.kl
 
-#PRODUCT_COPY_FILES += \
-#	device/samsung/galaxysl/prebuilt/usr/keylayout/AVRCP.kl:system/usr/keylayout/AVRCP.kl \
-#	device/samsung/galaxysl/prebuilt/usr/keylayout/qwerty.kl:system/usr/keylayout/qwerty.kl \
-
 PRODUCT_COPY_FILES += \
   device/samsung/galaxysl/prebuilt/usr/keychars/sec_key.kcm.bin:system/usr/keychars/sec_key.kcm.bin \
   device/samsung/galaxysl/prebuilt/usr/keychars/sec_touchscreen.kcm.bin:system/usr/keychars/sec_touchscreen.kcm.bin
-
-#PRODUCT_COPY_FILES += \
-#  device/samsung/galaxysl/prebuilt/usr/keychars/qwerty.kcm.bin:system/usr/keychars/qwerty.kcm.bin \
-#  device/samsung/galaxysl/prebuilt/usr/keychars/qwerty2.kcm.bin:system/usr/keychars/qwerty2.kcm.bin \
 
 PRODUCT_COPY_FILES += \
   device/samsung/galaxysl/prebuilt/usr/bluetooth/print/icon_calendar.jpg:system/usr/bluetooth/print/icon_calendar.jpg \
@@ -203,7 +168,6 @@ PRODUCT_COPY_FILES += \
   device/samsung/galaxysl/prebuilt/etc/security/drm/zgpriv.dat:system/etc/security/drm/zgpriv.dat \
   device/samsung/galaxysl/prebuilt/etc/updatecmds/google_generic_update.txt:system/etc/updatecmds/google_generic_update.txt
 
-#  device/samsung/galaxysl/prebuilt/etc/permissions/platform.xml:system/etc/permissions/platform.xml \
 
 # wifi configuration files
 PRODUCT_COPY_FILES += \
