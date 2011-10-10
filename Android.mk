@@ -12,7 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+LOCAL_PATH := $(call my-dir)
 
-ifeq ($(TARGET_BOOTLOADER_BOARD_NAME),GT-I9003)
-include $(all-subdir-makefiles)
+ifeq ($(TARGET_DEVICE),galaxysl)
+
+ifneq ($(TARGET_SIMULATOR),true)
+include $(call all-makefiles-under,$(LOCAL_PATH))
+endif
+
 endif

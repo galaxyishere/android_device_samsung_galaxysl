@@ -1,19 +1,6 @@
-##
-# Copyright (C) 2010-2011, Samsung Electronics, Co., Ltd. All Rights Reserved.
-#  Written by System S/W Group, S/W Platform R&D Team,
-#  Mobile Communication Division.
-##
-
-#==============================================================================
-# Trigger : early-init
-#==============================================================================
 on early-init
     start ueventd
 
-
-#==============================================================================
-# Trigger : init
-#==============================================================================
 on init
 
 sysclktz 0
@@ -22,23 +9,16 @@ loglevel 3
 
 # setup the global environment
     export PATH /sbin:/vendor/bin:/system/sbin:/system/bin:/system/xbin
-# SEC_SECURITYLAB_LATONA_DEVICE_ENCRYPTION: include /lib
     export LD_LIBRARY_PATH /lib:/vendor/lib:/system/lib
     export ANDROID_BOOTLOGO 1
     export ANDROID_ROOT /system
     export ANDROID_ASSETS /system/app
     export ANDROID_DATA /data
-    
+    export ANDROID_CACHE /cache
     export EXTERNAL_STORAGE /mnt/sdcard
-    export EXTERNAL_STORAGE2 /mnt/sdcard/external_sd
-    export USBHOST_STORAGE /mnt/sdcard/usbStorage
-
     export ASEC_MOUNTPOINT /mnt/asec
     export LOOP_MOUNTPOINT /mnt/obb
     export BOOTCLASSPATH /system/framework/core.jar:/system/framework/bouncycastle.jar:/system/framework/ext.jar:/system/framework/framework.jar:/system/framework/android.policy.jar:/system/framework/services.jar:/system/framework/core-junit.jar
-    export DSP_PATH /system/lib/dsp
-    export DEFAULT_BASEIMAGE /system/lib/dsp/baseimage.dof
-    export QOSDYN_FILE /system/lib/dsp/qosdyn_3430.dll64P
 
 # Backward compatibility
     symlink /system/etc /etc
@@ -51,17 +31,16 @@ loglevel 3
 # create mountpoints
     mkdir /mnt 0775 root system
     mkdir /mnt/sdcard 0000 system system
+    mkdir /mnt/emmc 0000 system system
 
 # Create cgroup mount point for cpu accounting
     mkdir /acct
     mount cgroup none /acct cpuacct
     mkdir /acct/uid
 
-#add booting sound property 
-	setprop audioflinger.bootsnd 1
-
 # Backwards Compat - XXX: Going away in G*
     symlink /mnt/sdcard /sdcard
+    symlink /mnt/emmc /emmc
 
     mkdir /system
     mkdir /dbdata 0771 system system
@@ -123,30 +102,14 @@ loglevel 3
     insmod /lib/modules/rfs_glue.ko
     insmod /lib/modules/rfs_fat.ko
     insmod /lib/modules/j4fs.ko
-
     insmod /lib/modules/Si4709_driver.ko
-
-    # ko files for vibrator
     insmod /lib/modules/vibrator.ko
-
-    # ko files for bthid
     insmod /lib/modules/bthid.ko
 
     #temp
     chown root root /sbin/fat.format
     chmod 750 /sbin/fat.format
 
-#==============================================================================
-# Load DSP base image
-#=============================================================================
-service baseimage /system/bin/cexec.out /system/lib/dsp/baseimage.dof
-    user root
-    group system audio camera graphics inet net_bt net_bt_admin net_raw media
-    oneshot
-
-#=============================================================================
-# CHange permission
-#============================================================================
 # change permissions for bridge.  Symlink search directory
     chown system system /dev/DspBridge
     chmod 0660 /dev/DspBridge
