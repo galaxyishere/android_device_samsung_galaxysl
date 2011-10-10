@@ -72,7 +72,7 @@ BOARD_CAMERA_LIBRARIES := libcamera
 BOARD_SECOND_CAMERA_DEVICE := true
 
 # Video
-HARDWARE_OMX := true
+#HARDWARE_OMX := true
 ifdef HARDWARE_OMX
 OMX_JPEG := true
 OMX_VENDOR := ti
@@ -98,7 +98,7 @@ BOARD_WPA_SUPPLICANT_PRIVATE_LIB := libCustomWifi
 BOARD_WLAN_DEVICE           := wl1271
 BOARD_SOFTAP_DEVICE         := wl1271
 WPA_SUPPLICANT_VERSION      := VER_0_6_X
-WIFI_DRIVER_MODULE_PATH     := "/system/etc/wifi/tiwlan_drv.ko"
+WIFI_DRIVER_MODULE_PATH     := "/system/lib/modules/tiwlan_drv.ko"
 WIFI_DRIVER_MODULE_NAME     := "tiwlan_drv"
 WIFI_FIRMWARE_LOADER        := "wlan_loader"
 AP_CONFIG_DRIVER_WILINK     := true
