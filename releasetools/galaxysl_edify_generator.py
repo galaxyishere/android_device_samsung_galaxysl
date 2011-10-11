@@ -25,6 +25,20 @@ class EdifyGenerator(edify_generator.EdifyGenerator):
     def AssertDevice(self, device):
       edify_generator.EdifyGenerator.AssertDevice(self, device)
 
+      self.script.append('ui_print("Checking state of RFS/EXT4...");')
+
+      self.script.append(
+            ('package_extract_file("updater.sh", "/tmp/updater.sh");\n'
+             'set_perm(0, 0, 0777, "/tmp/updater.sh");'))
+      self.script.append(
+           ('package_extract_file("make_ext4fs", "/tmp/make_ext4fs");\n'
+            'set_perm(0, 0, 0777, "/tmp/make_ext4fs");'))
+      self.script.append(
+            ('package_extract_file("busybox", "/tmp/busybox");\n'
+             'set_perm(0, 0, 0777, "/tmp/busybox");'))
+
+      self.script.append('assert(run_program("/tmp/updater.sh") == 0);')
+
     def RunBackup(self, command):
       edify_generator.EdifyGenerator.RunBackup(self, command)
 
