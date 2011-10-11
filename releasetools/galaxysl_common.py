@@ -30,31 +30,3 @@ def load_module_from_file(module_name, filename):
     f.close()
     return module
 
-def LoadRecoveryFSTab(zip):
-  class Partition(object):
-    pass
-
-  try:
-    data = zip.read("RECOVERY/RAMDISK/misc/recovery.fstab")
-  except KeyError:
-    raise ValueError("Could not find RECOVERY/RAMDISK/misc/recovery.fstab")
-
-  d = {}
-  for line in data.split("\n"):
-    line = line.strip()
-    if not line or line.startswith("#"): continue
-    pieces = line.split()
-    if not (3 <= len(pieces) <= 7):
-      raise ValueError("malformed recovery.fstab line: \"%s\"" % (line,))
-
-    p = Partition()
-    p.mount_point = pieces[0]
-    p.fs_type = pieces[1]
-    p.device = pieces[2]
-    if len(pieces) >= 4 and pieces[3] != 'NULL':
-      p.device2 = pieces[3]
-    else:
-      p.device2 = None
-
-    d[p.mount_point] = p
-  return d
