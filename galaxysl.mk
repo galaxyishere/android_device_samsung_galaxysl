@@ -122,7 +122,8 @@ PRODUCT_COPY_FILES += \
 # Packages
 PRODUCT_PACKAGES := \
 	com.android.future.usb.accessory \
-    bdaddr_read
+    bdaddr_read \
+    make_ext4fs
 
 # The OpenGL ES API level that is natively supported by this device.
 # This is a 16.16 fixed point number
@@ -182,6 +183,10 @@ endif
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_KERNEL):kernel
+
+# copy the filesystem converter
+PRODUCT_COPY_FILES += \
+	device/samsung/galaxysl/updater.sh:updater.sh
 
 # See comment at the top of this file. This is where the other
 # half of the device-specific product definition file takes care
