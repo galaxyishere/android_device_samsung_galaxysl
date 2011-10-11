@@ -23,24 +23,28 @@ rm -rf /mnt/sdcard/cyanogenmod.log
 # everything is logged into /sdcard/cyanogenmod.log
 exec >> /mnt/sdcard/cyanogenmod.log 2>&1
 
-# make sure efs is mounted
-if ! /tmp/busybox grep -q /efs /proc/mounts ; then
-    /tmp/busybox mkdir -p /efs
-    /tmp/busybox umount -l /dev/block/stl3
-    if ! /tmp/busybox mount -t rfs /dev/block/stl3 /efs ; then
-        /tmp/busybox echo "Cannot mount efs."
-        exit 2
-    fi
-fi
+# efs backup
+if ! /tmp/busybox test -e /sdcard/backup/efs/nv_data.bin ; then
 
-# create a backup of efs
-if /tmp/busybox test -e /mnt/sdcard/backup/efs ; then
-    /tmp/busybox mv /mnt/sdcard/backup/efs /mnt/sdcard/backup/efs-$$
-fi
-/tmp/busybox rm -rf /mnt/sdcard/backup/efs
+    # make sure efs is mounted
+    if ! /tmp/busybox grep -q /efs /proc/mounts ; then
+        /tmp/busybox mkdir -p /efs
+        /tmp/busybox umount -l /dev/block/stl3
+        if ! /tmp/busybox mount -t rfs /dev/block/stl3 /efs ; then
+            /tmp/busybox echo "Cannot mount efs."
+            exit 2
+        fi
+    fi
+
+    # create a backup of efs
+    if /tmp/busybox test -e /mnt/sdcard/backup/efs ; then
+        /tmp/busybox mv /mnt/sdcard/backup/efs /mnt/sdcard/backup/efs-$$
+    fi
+    /tmp/busybox rm -rf /mnt/sdcard/backup/efs
     
-/tmp/busybox mkdir -p /mnt/sdcard/backup/efs
-/tmp/busybox cp -R /efs/ /mnt/sdcard/backup
+    /tmp/busybox mkdir -p /mnt/sdcard/backup/efs
+    /tmp/busybox cp -R /efs/ /mnt/sdcard/backup
+fi
 
 #
 # filesystem conversion
