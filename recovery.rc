@@ -9,6 +9,7 @@ on init
     export EXTERNAL_STORAGE /sdcard
 
     #for clockworkmod recovery
+    mkdir /etc
     symlink /misc /etc
 
     mkdir /sdcard
