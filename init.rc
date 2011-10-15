@@ -113,6 +113,12 @@ loglevel 3
     insmod /lib/modules/jbd2.ko
     insmod /lib/modules/ext4.ko
 
+    # parameter block
+    insmod /lib/modules/j4fs.ko
+    mkdir /mnt/.lfs 0755 root root
+    mount j4fs /dev/block/stl6 /mnt/.lfs
+    insmod /lib/modules/param.ko   
+
     insmod /lib/modules/Si4709_driver.ko
     insmod /lib/modules/vibrator.ko
     insmod /lib/modules/bthid.ko

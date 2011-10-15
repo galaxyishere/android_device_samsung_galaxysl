@@ -38,7 +38,6 @@ on early-fs
     insmod /lib/modules/ext4.ko
 
     # parameter block
-
     insmod /lib/modules/j4fs.ko
     mkdir /mnt/.lfs 0755 root root
     mount j4fs /dev/block/stl6 /mnt/.lfs
