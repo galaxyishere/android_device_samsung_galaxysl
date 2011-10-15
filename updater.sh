@@ -7,6 +7,13 @@
 set -x
 export PATH=/:/sbin:/system/xbin:/system/bin:/tmp:$PATH
 
+# create directories
+/tmp/busybox mkdir -p /system
+/tmp/busybox mkdir -p /cache
+/tmp/busybox mkdir -p /data
+/tmp/busybox mkdir -p /datadata
+/tmp/busybox mkdir -p /efs
+
 # make sure sdcard is mounted
 if ! /tmp/busybox grep -q /mnt/sdcard /proc/mounts ; then
     /tmp/busybox mkdir -p /mnt/sdcard
