@@ -64,7 +64,6 @@ BOARD_EGL_CFG := device/samsung/galaxysl/egl.cfg
 
 # Audio
 BOARD_USES_GENERIC_AUDIO := false
-BOARD_PREBUILT_LIBAUDIO := true
 #BOARD_USES_ALSA_AUDIO := true
 #BUILD_WITH_ALSA_UTILS := true
 #ALSA_DEFAULT_SAMPLE_RATE := 44100
