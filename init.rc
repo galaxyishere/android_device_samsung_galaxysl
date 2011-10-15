@@ -102,6 +102,11 @@ loglevel 3
     insmod /lib/modules/rfs_glue.ko
     insmod /lib/modules/rfs_fat.ko
     insmod /lib/modules/j4fs.ko
+
+    insmod /lib/modules/mbcache.ko
+    insmod /lib/modules/jbd2.ko
+    insmod /lib/modules/ext4.ko
+
     insmod /lib/modules/Si4709_driver.ko
     insmod /lib/modules/vibrator.ko
     insmod /lib/modules/bthid.ko
