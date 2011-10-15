@@ -8,12 +8,11 @@ on init
     export ANDROID_DATA /data
     export EXTERNAL_STORAGE /sdcard
 
-    symlink /system/etc /etc
-
-    #Patch for CF-ROOT
-    symlink /sdcard /sd
+    #for clockworkmod recovery
+    symlink /misc /etc
 
     mkdir /sdcard
+    mkdir /emmc
     mkdir /preload
     mkdir /system
     mkdir /data
@@ -25,27 +24,24 @@ on init
 
     mkdir /mnt 0775 root root
 
-    #mount /tmp /tmp tmpfs   
-
 on early-fs
 
     # rfs drivers
+    insmod /lib/modules/fsr.ko
+    insmod /lib/modules/fsr_stl.ko
+    insmod /lib/modules/rfs_glue.ko
+    insmod /lib/modules/rfs_fat.ko    
 
-    insmod /lib/modules/2.6.35.7/kernel/samsung/rfs_fsr/drivers/fsr/fsr.ko
-    insmod /lib/modules/2.6.35.7/kernel/samsung/rfs_fsr/drivers/fsr/fsr_stl.ko
-    insmod /lib/modules/2.6.35.7/kernel/samsung/rfs_fsr/fs/rfs/rfs_glue.ko
-    insmod /lib/modules/2.6.35.7/kernel/samsung/rfs_fsr/fs/rfs/rfs_fat.ko    
-
-    insmod /lib/modules/2.6.35.7/kernel/fs/mbcache.ko
-    insmod /lib/modules/2.6.35.7/kernel/fs/jbd2/jbd2.ko
-    insmod /lib/modules/2.6.35.7/kernel/fs/ext4/ext4.ko
+    insmod /lib/modules/mbcache.ko
+    insmod /lib/modules/jbd2.ko
+    insmod /lib/modules/ext4.ko
 
     # parameter block
 
-    insmod /lib/modules/2.6.35.7/kernel/samsung/j4fs/j4fs.ko
+    insmod /lib/modules/j4fs.ko
     mkdir /mnt/.lfs 0755 root root
     mount j4fs /dev/block/stl6 /mnt/.lfs
-    insmod /lib/modules/2.6.35.7/kernel/samsung/param/param.ko    
+    insmod /lib/modules/param.ko    
 
     #temp
     chown root root /sbin/fat.format
@@ -71,9 +67,6 @@ on fs
 # Device Encryption for SMC driver
     mkdir /efs/smc-storage 0771 system system
     chmod 0666 /dev/smodule
-#  exec apply_smc_crypt
-
-#   exec apply_disk_policy
 
 on post-fs
     mount rootfs rootfs / rw remount
@@ -87,7 +80,6 @@ on post-fs
     write /proc/sys/kernel/sched_child_runs_first 0
 	
 on boot
-
     ifup lo
     hostname localhost
     domainname localdomain
@@ -109,5 +101,5 @@ service adbd /sbin/adbd recovery
 on property:persist.service.adb.enable=1
     start adbd
 
-#on property:persist.service.adb.enable=0
-#    stop adbd
+on property:persist.service.adb.enable=0
+    stop adbd
