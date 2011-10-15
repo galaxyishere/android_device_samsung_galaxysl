@@ -123,7 +123,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES := \
 	com.android.future.usb.accessory \
     bdaddr_read \
-    make_ext4fs \
+    utility_make_ext4fs \
     bootmenu_busybox
 
 # The OpenGL ES API level that is natively supported by this device.
