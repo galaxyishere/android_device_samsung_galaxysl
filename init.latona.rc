@@ -1,15 +1,7 @@
-on early-init
-# load linux-kernel modules
-    insmod /system/lib/modules/samsung_battery.ko
-    insmod /system/lib/modules/yas_mag_kernel_driver.ko
-    insmod /system/lib/modules/yas_acc_kernel_driver.ko
-    insmod /system/lib/modules/yas_ori_kernel_driver.ko
-    insmod /system/lib/modules/gp2a.ko
-    insmod /system/lib/modules/gps.ko
-    insmod /system/lib/modules/storage.ko
-    insmod /system/lib/modules/vibetonz.ko
+#on early-init
 
 on init
+
     symlink /system/etc /etc
 
 # Right now vendor lives on the same filesystem as system,
@@ -95,20 +87,36 @@ on init
     chmod 0660 /dev/video6
     chmod 0660 /dev/video10
 
-#on early-fs
+on early-fs
+
+# load linux-kernel modules
+    insmod /system/lib/modules/samsung_battery.ko
+    insmod /system/lib/modules/yas_mag_kernel_driver.ko
+    insmod /system/lib/modules/yas_acc_kernel_driver.ko
+    insmod /system/lib/modules/yas_ori_kernel_driver.ko
+    insmod /system/lib/modules/gp2a.ko
+    insmod /system/lib/modules/gps.ko
+    insmod /system/lib/modules/storage.ko
+    insmod /system/lib/modules/vibetonz.ko
 
 on fs
-    # We chown/chmod /efs again so because mount is run as root + defaults
+
+    # mount cache
+    mount ext4 /dev/block/stl11 /cache noatime nodiratime errors=continue nobh data=writeback barrier=0 noauto_da_alloc 
+
+    # mount efs
     mount rfs /dev/block/stl3 /efs nosuid nodev check=no,iocharset=cp437
     chown radio system /efs
     chmod 0771 /efs
 
     exec apply_disk_policy
 
+    # mount data
     mount ext4 /dev/block/mmcblk0p3 /data nosuid nodev noatime nodiratime errors=continue nobh data=writeback barrier=0 noauto_da_alloc
     chown system system /data
     chmod 0771 /data
 
+    # mount dbdata
     mount ext4 /dev/block/stl10 /dbdata nosuid nodev noatime nodiratime errors=continue nobh data=writeback barrier=0 noauto_da_alloc 
     chown system system /dbdata
     chmod 0771 /dbdata
@@ -125,6 +133,7 @@ on fs
     chmod 0777 /dbdata/db-journal
 
 on post-fs
+
     # We chown/chmod /data again so because mount is run as root + defaults
     chown system system /data
     chmod 0771 /data

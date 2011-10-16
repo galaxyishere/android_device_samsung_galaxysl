@@ -22,6 +22,8 @@ loglevel 3
     export SD_EXT_DIRECTORY /sd-ext
     export BOOTCLASSPATH /system/framework/core.jar:/system/framework/bouncycastle.jar:/system/framework/ext.jar:/system/framework/framework.jar:/system/framework/android.policy.jar:/system/framework/services.jar:/system/framework/core-junit.jar
 
+    mkdir /etc
+
 # Backward compatibility
     symlink /sys/kernel/debug /d
 
@@ -89,13 +91,13 @@ loglevel 3
     insmod /lib/modules/bthid.ko
 
 on fs
+
 # mount ext4 partitions
     mount ext4 /dev/block/stl9 /system noatime nodiratime errors=continue nobh data=writeback barrier=0 noauto_da_alloc 
     #mount ext4 /dev/block/stl9 /system ro remount
 
-    mount ext4 /dev/block/stl11 /cache noatime nodiratime errors=continue nobh data=writeback barrier=0 noauto_da_alloc 
-
 #on post-fs
+
     # once everything is setup, no need to modify /
     # mount rootfs rootfs / ro remount
 

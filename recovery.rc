@@ -1,6 +1,7 @@
 #on early-init
 
 on init
+
     #for clockworkmod recovery
     symlink /misc /etc
 
@@ -14,6 +15,7 @@ on init
 #on post-fs
 	
 on boot
+
     class_start default
 
 service console /sbin/sh
