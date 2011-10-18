@@ -1,0 +1,40 @@
+#!/stage1/busybox sh
+export _PATH="$PATH"
+export PATH=/stage1
+
+busybox cd /
+busybox date >>boot.txt
+exec >>boot.txt 2>&1
+busybox rm init
+busybox mount -t proc proc /proc
+busybox mount -t sysfs sysfs /sys
+RAMDISK=ramdisk.img
+
+# insmod needed modules
+insmod /lib/modules/fsr.ko
+insmod /lib/modules/fsr_stl.ko
+insmod /lib/modules/rfs_glue.ko
+insmod /lib/modules/rfs_fat.ko    
+insmod /lib/modules/ext4.ko
+
+if busybox grep -q bootmode=2 /proc/cmdline ; then
+	# recovery boot
+    RAMDISK=ramdisk-recovery.img
+fi
+
+busybox gunzip -c ${RAMDISK} | busybox cpio -i
+
+if busybox grep -q 1 /sys/class/power_supply/battery/batt_lp_charging ; then
+	# low power mode
+	busybox cp lpm.rc init.rc
+	busybox rm init.latona.rc
+fi
+
+busybox umount /sys
+busybox umount /proc
+busybox date >>boot.txt
+busybox rm -fr /stage1 /dev/*
+busybox rm -fr /ramdisk.img
+busybox rm -fr /ramdisk-recovery.img
+export PATH="${_PATH}"
+exec /init

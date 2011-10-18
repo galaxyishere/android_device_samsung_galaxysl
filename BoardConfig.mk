@@ -18,11 +18,18 @@ COMMON_GLOBAL_CFLAGS += -DTARGET_OMAP3
 TARGET_NO_BOOTLOADER := true
 TARGET_NO_RADIOIMAGE := true
 
-BOARD_USES_COMBINED_RECOVERY := true
-BOARD_PROVIDES_BOOTMODE := true
 TARGET_PROVIDES_INIT := true
 TARGET_PROVIDES_INIT_TARGET_RC := true
 TARGET_RECOVERY_INITRC := device/samsung/galaxysl/recovery.rc
+
+BOARD_NAND_PAGE_SIZE := 4096 -s 128
+BOARD_KERNEL_PAGESIZE := 4096
+BOARD_KERNEL_CMDLINE := console=ttySAC2,115200 consoleblank=0
+BOARD_KERNEL_BASE := 0x10000000
+BOARD_PAGE_SIZE := 4096
+
+BOARD_CUSTOM_BOOTIMG_MK := device/samsung/galaxysl/shbootimg.mk
+TARGET_PREBUILT_KERNEL := device/samsung/galaxysl/kernel
 
 # recovery
 BOARD_BML_BOOT := /dev/block/bml7
@@ -31,14 +38,6 @@ BOARD_USES_MMCUTILS := true
 BOARD_HAS_NO_MISC_PARTITION := true
 BOARD_HAS_NO_SELECT_BUTTON := true
 BOARD_CUSTOM_RECOVERY_KEYMAPPING:= ../../device/samsung/galaxysl/recovery/recovery_ui.c
-
-BOARD_NAND_PAGE_SIZE := 4096 -s 128
-BOARD_KERNEL_PAGESIZE := 4096
-BOARD_KERNEL_CMDLINE := console=ttySAC2,115200 consoleblank=0
-BOARD_KERNEL_BASE := 0x10000000
-BOARD_PAGE_SIZE := 4096
-
-TARGET_PREBUILT_KERNEL := device/samsung/galaxysl/kernel
 
 # fix this up by examining /proc/mtd on a running device
 BOARD_BOOTIMAGE_PARTITION_SIZE := 8388608
