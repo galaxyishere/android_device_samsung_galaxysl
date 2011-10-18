@@ -171,6 +171,9 @@ PRODUCT_LOCALES := hdpi
 
 # kernel modules for ramdisk
 PRODUCT_COPY_FILES += \
+	$(call find-copy-subdir-files,*,device/samsung/galaxysl/modules/ramdisk,root/lib/modules)
+
+PRODUCT_COPY_FILES += \
 	$(call find-copy-subdir-files,*,device/samsung/galaxysl/modules/ramdisk,recovery/root/lib/modules)
 
 # other kernel modules not in ramdisk

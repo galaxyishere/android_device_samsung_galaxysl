@@ -107,9 +107,6 @@ loglevel 3
     insmod /lib/modules/rfs_glue.ko
     insmod /lib/modules/rfs_fat.ko
     insmod /lib/modules/j4fs.ko
-
-    insmod /lib/modules/mbcache.ko
-    insmod /lib/modules/jbd2.ko
     insmod /lib/modules/ext4.ko
 
     # parameter block
@@ -117,10 +114,6 @@ loglevel 3
     mkdir /mnt/.lfs 0755 root root
     mount j4fs /dev/block/stl6 /mnt/.lfs
     insmod /lib/modules/param.ko   
-
-    insmod /lib/modules/Si4709_driver.ko
-    insmod /lib/modules/vibrator.ko
-    insmod /lib/modules/bthid.ko
 
     #temp
     chown root root /sbin/fat.format
@@ -216,6 +209,13 @@ on fs
 on post-fs
     # once everything is setup, no need to modify /
     # mount rootfs rootfs / ro remount
+
+    # additional kernel modules
+    insmod /system/lib/modules/mbcache.ko
+    insmod /system/lib/modules/jbd2.ko
+    insmod /system/lib/modules/Si4709_driver.ko
+    insmod /system/lib/modules/vibetonz.ko
+    insmod /system/lib/modules/bthid.ko
 
     # We chown/chmod /data again so because mount is run as root + defaults
     chown system system /data
